@@ -120,7 +120,7 @@ bool reshade::imgui::file_dialog(const char *name, std::filesystem::path &path, 
 
 	if (parent_path.has_parent_path() && parent_path != parent_path.root_path())
 	{
-		if (ImGui::Selectable(ICON_FK_FOLDER " ..", false, ImGuiSelectableFlags_AllowDoubleClick) && (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) || ImGui::IsNavInputTest(ImGuiNavInput_Activate, ImGuiInputReadMode_Pressed)))
+		if (ImGui::Selectable(ICON_FK_FOLDER " ..", false, ImGuiSelectableFlags_AllowDoubleClick) && (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) || ImGui::IsNavInputTest(ImGuiNavInput_Activate, ImGuiNavReadMode_Pressed)))
 		{
 			path = parent_path.parent_path();
 			if (path.has_stem())
@@ -140,7 +140,7 @@ bool reshade::imgui::file_dialog(const char *name, std::filesystem::path &path, 
 				path = entry;
 
 				// Navigate into directory when double clicking one
-				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) || ImGui::IsNavInputTest(ImGuiNavInput_Activate, ImGuiInputReadMode_Pressed))
+				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) || ImGui::IsNavInputTest(ImGuiNavInput_Activate, ImGuiNavReadMode_Pressed))
 					path += std::filesystem::path::preferred_separator;
 			}
 
@@ -172,7 +172,7 @@ bool reshade::imgui::file_dialog(const char *name, std::filesystem::path &path, 
 			path = std::move(file_path);
 
 			// Double clicking a file on the other hand acts as if pressing the ok button
-			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) || ImGui::IsNavInputTest(ImGuiNavInput_Activate, ImGuiInputReadMode_Pressed))
+			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) || ImGui::IsNavInputTest(ImGuiNavInput_Activate, ImGuiNavReadMode_Pressed))
 				has_double_clicked_file = true;
 		}
 

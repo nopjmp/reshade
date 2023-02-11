@@ -186,7 +186,7 @@ struct imgui_function_table
 	bool(*ColorEdit4)(const char* label, float col[4], ImGuiColorEditFlags flags);
 	bool(*ColorPicker3)(const char* label, float col[3], ImGuiColorEditFlags flags);
 	bool(*ColorPicker4)(const char* label, float col[4], ImGuiColorEditFlags flags, const float* ref_col);
-	bool(*ColorButton)(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags, ImVec2 size);
+	bool(*ColorButton)(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags, const ImVec2& size);
 	void(*SetColorEditOptions)(ImGuiColorEditFlags flags);
 	bool(*TreeNode)(const char* label);
 	bool(*TreeNodeV)(const char* str_id, const char* fmt, va_list args);
@@ -327,7 +327,7 @@ struct imgui_function_table
 	bool(*IsKeyPressed)(int user_key_index, bool repeat);
 	bool(*IsKeyReleased)(int user_key_index);
 	int(*GetKeyPressedAmount)(int key_index, float repeat_delay, float rate);
-	void(*CaptureKeyboardFromApp)(bool want_capture_keyboard_value);
+	void(*SetNextFrameWantCaptureKeyboard)(bool want_capture_keyboard_value);
 	bool(*IsMouseDown)(ImGuiMouseButton button);
 	bool(*IsMouseClicked)(ImGuiMouseButton button, bool repeat);
 	bool(*IsMouseReleased)(ImGuiMouseButton button);
@@ -343,7 +343,7 @@ struct imgui_function_table
 	void(*ResetMouseDragDelta)(ImGuiMouseButton button);
 	ImGuiMouseCursor(*GetMouseCursor)();
 	void(*SetMouseCursor)(ImGuiMouseCursor cursor_type);
-	void(*CaptureMouseFromApp)(bool want_capture_mouse_value);
+	void(*SetNextFrameWantCaptureMouse)(bool want_capture_mouse_value);
 	const char*(*GetClipboardText)();
 	void(*SetClipboardText)(const char* text);
 	bool(*DebugCheckVersionAndDataLayout)(const char* version_str, size_t sz_io, size_t sz_style, size_t sz_vec2, size_t sz_vec4, size_t sz_drawvert, size_t sz_drawidx);
@@ -610,7 +610,7 @@ namespace ImGui
 	inline bool ColorEdit4(const char* label, float col[4], ImGuiColorEditFlags flags) { return imgui_function_table_instance()->ColorEdit4(label, col, flags); }
 	inline bool ColorPicker3(const char* label, float col[3], ImGuiColorEditFlags flags) { return imgui_function_table_instance()->ColorPicker3(label, col, flags); }
 	inline bool ColorPicker4(const char* label, float col[4], ImGuiColorEditFlags flags, const float* ref_col) { return imgui_function_table_instance()->ColorPicker4(label, col, flags, ref_col); }
-	inline bool ColorButton(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags, ImVec2 size) { return imgui_function_table_instance()->ColorButton(desc_id, col, flags, size); }
+	inline bool ColorButton(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags, const ImVec2& size) { return imgui_function_table_instance()->ColorButton(desc_id, col, flags, size); }
 	inline void SetColorEditOptions(ImGuiColorEditFlags flags) { imgui_function_table_instance()->SetColorEditOptions(flags); }
 	inline bool TreeNode(const char* label) { return imgui_function_table_instance()->TreeNode(label); }
 	inline bool TreeNode(const char* str_id, const char* fmt, ...) { va_list args; va_start(args, fmt); return imgui_function_table_instance()->TreeNodeV(str_id, fmt, args); va_end(args); }
@@ -756,7 +756,7 @@ namespace ImGui
 	inline bool IsKeyPressed(int user_key_index, bool repeat) { return imgui_function_table_instance()->IsKeyPressed(user_key_index, repeat); }
 	inline bool IsKeyReleased(int user_key_index) { return imgui_function_table_instance()->IsKeyReleased(user_key_index); }
 	inline int GetKeyPressedAmount(int key_index, float repeat_delay, float rate) { return imgui_function_table_instance()->GetKeyPressedAmount(key_index, repeat_delay, rate); }
-	inline void CaptureKeyboardFromApp(bool want_capture_keyboard_value) { imgui_function_table_instance()->CaptureKeyboardFromApp(want_capture_keyboard_value); }
+	inline void SetNextFrameWantCaptureKeyboard(bool want_capture_keyboard_value) { imgui_function_table_instance()->SetNextFrameWantCaptureKeyboard(want_capture_keyboard_value); }
 	inline bool IsMouseDown(ImGuiMouseButton button) { return imgui_function_table_instance()->IsMouseDown(button); }
 	inline bool IsMouseClicked(ImGuiMouseButton button, bool repeat) { return imgui_function_table_instance()->IsMouseClicked(button, repeat); }
 	inline bool IsMouseReleased(ImGuiMouseButton button) { return imgui_function_table_instance()->IsMouseReleased(button); }
@@ -772,7 +772,7 @@ namespace ImGui
 	inline void ResetMouseDragDelta(ImGuiMouseButton button) { imgui_function_table_instance()->ResetMouseDragDelta(button); }
 	inline ImGuiMouseCursor GetMouseCursor() { return imgui_function_table_instance()->GetMouseCursor(); }
 	inline void SetMouseCursor(ImGuiMouseCursor cursor_type) { imgui_function_table_instance()->SetMouseCursor(cursor_type); }
-	inline void CaptureMouseFromApp(bool want_capture_mouse_value) { imgui_function_table_instance()->CaptureMouseFromApp(want_capture_mouse_value); }
+	inline void SetNextFrameWantCaptureMouse(bool want_capture_mouse_value) { imgui_function_table_instance()->SetNextFrameWantCaptureMouse(want_capture_mouse_value); }
 	inline const char* GetClipboardText() { return imgui_function_table_instance()->GetClipboardText(); }
 	inline void SetClipboardText(const char* text) { imgui_function_table_instance()->SetClipboardText(text); }
 	inline bool DebugCheckVersionAndDataLayout(const char* version_str, size_t sz_io, size_t sz_style, size_t sz_vec2, size_t sz_vec4, size_t sz_drawvert, size_t sz_drawidx) { return imgui_function_table_instance()->DebugCheckVersionAndDataLayout(version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx); }

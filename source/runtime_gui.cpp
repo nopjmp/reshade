@@ -1504,7 +1504,7 @@ void reshade::runtime::draw_gui_home()
 		if (ImGui::IsItemActive())
 		{
 			ImVec2 move_delta = _imgui_context->IO.MouseDelta;
-			move_delta += ImGui::GetNavInputAmount2d(ImGuiNavDirSourceFlags_RawKeyboard | ImGuiNavDirSourceFlags_PadLStick, ImGuiInputReadMode_Down) * _imgui_context->IO.DeltaTime * 500.0f;
+			move_delta += ImGui::GetNavInputAmount2d(ImGuiNavDirSourceFlags_RawKeyboard | ImGuiNavDirSourceFlags_PadLStick, ImGuiNavReadMode_Down) * _imgui_context->IO.DeltaTime * 500.0f;
 
 			_variable_editor_height = std::max(_variable_editor_height - move_delta.y, 0.0f);
 			save_config();
